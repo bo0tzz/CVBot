@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+group 'me.bo0tzz'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+mainClassName = 'me.bo0tzz.cvbot.CVBot'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
+dependencies {
+    compile group: 'com.jtelegram', name: 'jtelegrambotapi-core', version: '3.6.3-SNAPSHOT'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'CVBot',
+                'Implementation-Version': version,
+                'Main-Class': 'me.bo0tzz.cvbot.CVBot'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
