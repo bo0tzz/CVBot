@@ -59,8 +59,8 @@ public class CVBotHandler implements EventHandler<PhotoMessageEvent> {
                 tag = p.getTagName();
             }
         }
-        
-        if (event.getMessage().getChat().getType().equals("PRIVATE") || probability >= 0.6) {
+
+        if (event.getMessage().getChat().getType().equals("PRIVATE") || (probability >= 0.6 && !tag.startsWith("Not"))) {
             String message = String.format(FORMAT, probability * 100, tag);
             CVBot.getBot().perform(SendText.builder()
                     .chatId(event.getMessage().getChat().getChatId())
